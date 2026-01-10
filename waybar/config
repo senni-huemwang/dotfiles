@@ -1,13 +1,13 @@
 {
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
-    // "height": 30, // Waybar height (to be removed for auto height)
+    "height": 28, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
+    "modules-left": ["custom/window", "sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "temperature", "backlight", "sway/language", "battery", "clock", "tray", "custom/power"],
+    "modules-right": ["tray", "pulseaudio", "backlight", "network", "sway/language", "custom/notifications", "custom/power-options", "custom/power", "battery", "clock"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -141,8 +141,24 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
 	"custom/power": {
-		"format":"⏻", 
-		"on-click":"swaynag -t general -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Suspend' 'swaymsg exec systemctl suspend' -b 'Shutdown' 'systemctl poweroff'"
+		"format":"  ⏻  ",
+		"on-click":"swaynag -t general -m 'Power Menu Options' -Z 'Logout' 'swaymsg exit' -Z 'Suspend' 'swaymsg exec systemctl suspend' -Z 'Restart' 'systemctl restart' -Z 'Shutdown' 'systemctl poweroff'"
+	},
+	"custom/power-options": {
+		"format":"{icon}",
+		"format-icons": "    ",
+		"on-click":"~/.config/waybar/custom_scripts/custom-power-option.sh"
+	},
+	"custom/notifications": {
+		"format":"{icon}",
+		"format-icons": "     ",
+		"on-click":"~/.config/waybar/custom_scripts/custom-notifications.sh"
+	},
+	"custom/window": {
+	"format":"{icon}",
+	"format-icons": "  🗗",
+	"on-click":"~/.config/waybar/custom_scripts/custom-window.sh"
 	}
+
 }
 

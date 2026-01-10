@@ -16,7 +16,7 @@ Put all the directories under $HOME/.config/, and install required packages.
 - vim-plug
 - foot
 - sway
-- autotiling (This config assumes autotiling is stored in ~/.local/bin/)
+- autotiling
 - fonts-awesome
 - swaybg
 - waybar
@@ -51,12 +51,13 @@ In order to use the custom fastfetch config, run `fastfetch` with an option to a
 | Super + Enter                                 | Open terminal (foot)                                                                         |
 | Super + Backspace                             | Kill window                                                                                  |
 | Super + D                                     | Launch Application Launcher (fuzzel)                                                         |
-| Super + Shift + E                             | Exit sway session  (Alternatively, you can run `swaymsg exit` to skip confirmation dialogue. |
+| Super + Shift + E                             | Exit sway session  (Alternatively, you can run `swaymsg exit` to skip confirmation dialogue.)|
 | Super + H/J/K/L                               | Move focus between windows                                                                   |
 | Super + Shift + H/J/K/L                       | Move windows in workspace                                                                    |
 | Super + [Number]                              | Switch workspaces                                                                            |
 | Super + Shift + [Number]                      | Move focused window to workspaces                                                            |
 | Three finger swipe left/right (Touchpad only) | Alternative for 'switch workspaces'                                                          |
+| Super + PgUp/PgDn                             | Alternative for 'switch workspaces'                                                          |
 | Super + V                                     | Toggle floating window                                                                       |
 | Super + R                                     | Enter resize mode,  use arrow keys or H/J/K/L to resize window Exit with Enter or ESC        |
 | Super + Shift + -                             | Save focused window in scratchpad                                                            |

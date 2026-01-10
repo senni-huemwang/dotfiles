@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: ubuntu;
     font-size: 13px;
 }
 
@@ -87,7 +87,9 @@ button:hover {
 #mode,
 #idle_inhibitor,
 #scratchpad,
-#mpd {
+#mpd 
+#custom-power-options 
+#custom-notifications {
     padding: 0 10px;
     color: #ffffff;
     background-color: rgba(43, 48, 59, 0.5);
