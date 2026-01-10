@@ -9,7 +9,10 @@ Plug 'm4xshen/autoclose.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'xiyaowong/transparent.nvim'
+Plug 'stevearc/vim-arduino'
+Plug 'akinsho/toggleterm.nvim'
 vim.call('plug#end')
 
 require("autoclose").setup()
 require("nvim-tree").setup()
+require("toggleterm").setup()

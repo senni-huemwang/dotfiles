@@ -4,6 +4,7 @@
 # sway
 # swaybg
 # waybar
+# autotiling
 # brightnessctl-utils
 # fuzzel
 # swayidle
@@ -37,7 +38,7 @@ include /etc/sway/config-vars.d/*
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Wallpaper
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
@@ -45,17 +46,27 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+
+output eDP-1 pos 0 0
+
+# workspace 1 output HDMI-A-1
+# workspace 2 output HDMI-A-1
+# workspace 3 output HDMI-A-1
+# workspace 4 output HDMI-A-1
+# workspace 8 output eDP-1
+# workspace 9 output eDP-1
+
+### Idle configuration
+
+# Set idle time, suspend, and locking
+exec swayidle -w \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'gtklock -d'
+
+# additional locking for lid-closed suspend
+set $lock 'gtklock -d'
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable ; exec $lock
 
 ### Input configuration
 #
@@ -69,9 +80,14 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
    input type:pointer {
        accel_profile "flat"
-	   pointer_accel -0.4
+	   pointer_accel 0
+   }
+   input "2:10:TPPS/2_Elan_TrackPoint" {
+ 	  	accel_profile "flat"
+		pointer_accel 0.7
    }
 #
+
 # Set English and Thai layout, and switch with Caps Lock
   input type:keyboard {
     xkb_layout us,th
@@ -80,12 +96,12 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 # Add environment variable for bemoji to use fuzzel as launcher in .bashrc
 # export BEMOJI_PICKER_CMD='fuzzel --dmenu'
-exec_always export BEMOJI_PICKER_CMD='fuzzel --dmenu'
+exec_always export BEMOJI_PICKER_CMD='fuzzel --dmenu --no-exit-on-keyboard-loss'
 bindsym $mod+Ctrl+Space exec export BEMOJI_PICKER_CMD='fuzzel --dmenu' && ~/.local/bin/bemoji 
 
 # use swayr (cargo) to switch window
-exec_always ~/.cargo/bin/swayrd
-bindsym $mod+Backslash exec ~/.cargo/bin/swayr switch-window
+exec_always $HOME/.cargo/bin/swayrd
+bindsym $mod+Backslash exec $HOME/.cargo/bin/swayr switch-window
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -96,9 +112,11 @@ bindsym $mod+Backslash exec ~/.cargo/bin/swayr switch-window
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+t exec $term
 
     # Kill focused window
     bindsym $mod+Backspace kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -115,6 +133,8 @@ bindsym $mod+Backslash exec ~/.cargo/bin/swayr switch-window
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+exec systemctl --user import-environment
 #
 # Moving around:
 #
@@ -229,26 +249,28 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
 #
-# Screenshot with grim and grimshot
+# Screenshot with grim and slurp via grimshot
 #
 bindsym $mod+Print exec grimshot save screen
 bindsym $mod+Shift+print exec grimshot save window
-#
+bindsym $mod+Alt+print exec grimshot save area
+
+# Fullscreen and area screenshot with Mac-like command for my keyboard
+bindsym Shift+Alt+3 exec grimshot save screen
+bindsym Shift+Alt+4 exec grimshot save area
+
 include /etc/sway/config.d/*
 
 # Use Waybar
 bar swaybar_command waybar
 
-# Use Swayidle to lock screen before suspend
-
-# exec swayidle \
-#     before-sleep 'gtklock -d'
-
 # Set volume up/down, mute, and brightness up/down (User must be in 'video' and 'input' group)
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
@@ -257,8 +279,8 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# use autotiling script (pip)
-exec_always ~/.local/bin/autotiling
+# use autotiling script
+exec_always autotiling
 
 # run daemon for sway-notification-center
 exec swaync
@@ -276,5 +298,12 @@ bindgesture swipe:left workspace next
 # Set gaps
 gaps inner 8
 
+# Workspace switching with Super+Tab
 bindsym $mod+tab workspace next_on_output 
 bindsym $mod+Shift+tab workspace prev_on_output
+
+# Workspace switching with Super+PgUp/PgDown
+bindsym $mod+Page_Down workspace next_on_output 
+bindsym $mod+Page_Up workspace prev_on_output
+
+
