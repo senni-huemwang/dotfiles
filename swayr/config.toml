@@ -2,6 +2,7 @@
 executable = 'fuzzel'
 args = [
      '--dmenu',
+     '--no-exit-on-keyboard-focus-loss',
      '--width=60',
 ]
 
@@ -16,4 +17,5 @@ icon_dirs = [
     '~/.local/share/icons/hicolor/48x48/apps/',
 	'/var/lib/flatpak/exports/share/icons/hicolor/',
 	'~/.local/share/flatpak/exports/share/icons/hicolor/',
+	'/usr/share/icons'
 ]

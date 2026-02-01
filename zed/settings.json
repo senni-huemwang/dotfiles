@@ -1,0 +1,78 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "zoomed_padding": true,
+  "active_pane_modifiers": {
+    "inactive_opacity": 1.0,
+  },
+  "preview_tabs": {
+    "enable_preview_from_file_finder": false,
+  },
+  "status_bar": {
+    "active_language_button": true,
+  },
+  "auto_update": false,
+  "icon_theme": "Zed (Default)",
+  "buffer_font_weight": 500.0,
+  "ui_font_weight": 500.0,
+  "buffer_font_family": ".SystemUIFont",
+  "git_panel": {
+    "dock": "right",
+  },
+  "project_panel": {
+    "hide_root": false,
+    "entry_spacing": "comfortable",
+    "git_status": true,
+    "hide_gitignore": false,
+  },
+  "tabs": {
+    "file_icons": false,
+    "git_status": false,
+  },
+  "hard_tabs": false,
+  "use_system_window_tabs": false,
+  "tab_bar": {
+    "show": true,
+  },
+  "title_bar": {
+    "show_branch_name": true,
+    "show_onboarding_banner": true,
+    "show_project_items": true,
+    "show_menus": false,
+    "show_user_picture": false,
+    "show_sign_in": false,
+    "show_branch_icon": true,
+  },
+  "disable_ai": true,
+  "vim_mode": true,
+  "ui_font_size": 17.0,
+  "buffer_font_size": 16.0,
+  "theme": "Ayu Dark",
+  // "files.associations": {
+  //   "*.ino": "cpp",
+  // },
+  "experimental.theme_overrides": {
+    "background.appearance": "blurred",
+    "editor.background": "#00000000",
+    // "panel.background": "#1f2127dd",
+    // "terminal.background": "#00000000",
+    "background": "#000000dd",
+    // -------------------------------------
+    // Ubuntu color accent
+    // -------------------------------------
+    "text.accent": "e95420ff",
+    "icon.accent": "e95420ff",
+    "icon": "e95420ff",
+    "panel.focused_border": "#e95420ff",
+    "editor.document_highlight.read_background": "#e954201a",
+    "link_text.hover": "#e95420ff",
+    "info": "#e95420ff",
+    "renamed": "#e95420ff",
+  },
+}

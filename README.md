@@ -1,4 +1,4 @@
-# Dotfiles for my swaywm, neovim, cava, and fastfetch
+# Senni's minimal dotfiles for swaywm, zed, neovim, cava, and fastfetch
 
 (Looking for wallpapers for your new rice? [Check my wallpapers out!](https://github.com/senni-huemwang/backgrounds/))
 
@@ -7,6 +7,8 @@
 ![Example Screenshot 3](Screenshot3.png)
 
 ## Instructions
+
+## IMPORTANT : For systemd-based systems, comment line 22, 27-29
 
 Put all the directories under $HOME/.config/, and install required packages.
 

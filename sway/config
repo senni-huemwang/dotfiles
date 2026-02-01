@@ -18,6 +18,19 @@
 # sway-notification-center
 # Add USER to group "video" and "input"
 
+## Start portal (for non systemd systems)
+exec dbus-update-activation-environment --all DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+## exec xdg-desktop-portal-wlr
+## exec xdg-desktop-portal
+
+## Autorun pipewire for non-systemd systems
+exec pipewire
+exec pipewire-pulse
+exec wireplumber
+
+## turn off mic mute led (for modern thinkpads not running ubuntu-based distros)
+# exec echo 0 > /sys/class/leds/platform::micmute/brightness
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -97,11 +110,14 @@ bindswitch --reload --locked lid:off output eDP-1 enable ; exec $lock
 # Add environment variable for bemoji to use fuzzel as launcher in .bashrc
 # export BEMOJI_PICKER_CMD='fuzzel --dmenu'
 exec_always export BEMOJI_PICKER_CMD='fuzzel --dmenu --no-exit-on-keyboard-loss'
-bindsym $mod+Ctrl+Space exec export BEMOJI_PICKER_CMD='fuzzel --dmenu' && ~/.local/bin/bemoji 
+bindsym $mod+Ctrl+Space exec export BEMOJI_PICKER_CMD='fuzzel --dmenu' && ~/.local/bin/bemoji -tcn
 
-# use swayr (cargo) to switch window
+# Use swayr (cargo) to switch window
 exec_always $HOME/.cargo/bin/swayrd
 bindsym $mod+Backslash exec $HOME/.cargo/bin/swayr switch-window
+# If use with AUR or other native binaries
+# exec_always swayrd
+# bindsym $mod+Backslash exec swayr switch-window
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -253,13 +269,13 @@ bindsym $mod+r mode "resize"
 #
 # Screenshot with grim and slurp via grimshot
 #
-bindsym $mod+Print exec grimshot save screen
-bindsym $mod+Shift+print exec grimshot save window
-bindsym $mod+Alt+print exec grimshot save area
+bindsym $mod+Print exec grimshot savecopy screen ~/Pictures/Screenshots/Screenshot-From-$(date +%Y-%m-%d)-$(date +%H-%M-%S).png
+bindsym $mod+Shift+print exec grimshot savecopy window ~/Pictures/Screenshots/Screenshot-From-$(date +%Y-%m-%d)-$(date +%H-%M-%S).png
+bindsym $mod+Alt+print exec grimshot savecopy area ~/Pictures/Screenshots/Screenshot-From-$(date +%Y-%m-%d)-$(date +%H-%M-%S).png
 
 # Fullscreen and area screenshot with Mac-like command for my keyboard
-bindsym Shift+Alt+3 exec grimshot save screen
-bindsym Shift+Alt+4 exec grimshot save area
+bindsym Shift+Alt+3 exec grimshot savecopy screen ~/Pictures/screenshots/screenshot-from-$(date +%y-%m-%d)-$(date +%h-%m-%s).png
+bindsym Shift+Alt+4 exec grimshot savecopy area ~/Pictures/screenshots/screenshot-from-$(date +%y-%m-%d)-$(date +%h-%m-%s).png
 
 include /etc/sway/config.d/*
 
@@ -279,17 +295,23 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# use autotiling script
+# Use autotiling script
 exec_always autotiling
+# If used with local script or pip
+# exec_always $HOME/.local/bin/autotiling
 
 # run daemon for sway-notification-center
 exec swaync
 bindsym $mod+n exec swaync-client -t
 
+# No titlebars
+default_border pixel 4
+default_floating_border 4
+
 # Set border color
-client.focused #282a36 #282a36cc #ffffff #3f4c57 #282a36cc
-client.focused_inactive #222222 #222222cc #ffffff #3f4c57 #282a36cc
-client.unfocused #222222 #222222cc #ffffff #3f4c57 #282a36cc
+client.focused #282a36 #282a36cc #ffffff #3f4c57 #3b3a56cc
+client.focused_inactive #222222 #222222cc #ffffff #3f4c57 #222222cc
+client.unfocused #222222 #222222cc #ffffff #3f4c57 #222222cc
 
 # touchpad gestures
 bindgesture swipe:right workspace prev
@@ -299,11 +321,9 @@ bindgesture swipe:left workspace next
 gaps inner 8
 
 # Workspace switching with Super+Tab
-bindsym $mod+tab workspace next_on_output 
+bindsym $mod+tab workspace next_on_output
 bindsym $mod+Shift+tab workspace prev_on_output
 
 # Workspace switching with Super+PgUp/PgDown
-bindsym $mod+Page_Down workspace next_on_output 
+bindsym $mod+Page_Down workspace next_on_output
 bindsym $mod+Page_Up workspace prev_on_output
-
-
