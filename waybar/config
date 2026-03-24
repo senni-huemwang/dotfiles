@@ -101,13 +101,14 @@
         "bat": "BAT2"
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "interface": "wlan0", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+		"on-click-right": "foot nmtui"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -141,8 +142,8 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
 	"custom/power": {
-		"format":"  ⏻  ",
-		"on-click":"swaynag -t general -m 'Power Menu Options' -Z 'Logout' 'swaymsg exit' -Z 'Suspend' 'swaymsg exec systemctl suspend' -Z 'Restart' 'systemctl restart' -Z 'Shutdown' 'systemctl poweroff'"
+		"format":" ⏻ ",
+		"on-click":"swaynag -t general -m 'Power Menu Options' -Z 'Logout' 'swaymsg exit' -Z 'Lock' 'gtklock -d' -Z 'Suspend' 'swaymsg exec loginctl suspend' -Z 'Restart' 'swaymsg exec loginctl reboot' -Z 'Shutdown' 'swaymsg exec loginctl poweroff'"
 	},
 	"custom/power-options": {
 		"format":"{icon}",
