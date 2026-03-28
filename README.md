@@ -8,7 +8,7 @@
 
 ## Instructions
 
-## IMPORTANT : For systemd-based systems, comment line 22, 27-29
+## IMPORTANT : For systemd-based systems, comment line 22, 27-29 in sway/config
 
 Put all the directories under $HOME/.config/, and install required packages.
 
