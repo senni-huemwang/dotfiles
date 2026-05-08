@@ -1,5 +1,7 @@
 # Senni's minimal dotfiles for swaywm, zed, neovim, cava, and fastfetch
 
+## ARCHIVED. MOVED TO GITLAB https://gitlab.com/senni-huemwang/dotfiles
+
 (Looking for wallpapers for your new rice? [Check my wallpapers out!](https://github.com/senni-huemwang/backgrounds/))
 
 ![Example Screenshot 1](Screenshot1.png)
